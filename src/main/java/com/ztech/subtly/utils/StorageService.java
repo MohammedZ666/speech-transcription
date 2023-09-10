@@ -10,8 +10,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,8 +17,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBody;
 
 public class StorageService {
-    private final static Logger log = LoggerFactory.getLogger(StorageService.class);
-
     public StorageService() {
     }
 
@@ -34,10 +30,9 @@ public class StorageService {
 
     private String _save(MultipartFile file, String path, String fileName) {
         try {
-            if (!new File(path).exists()) {
-                System.out.println("Path does not exist, creating...");
+            if (!new File(path).exists())
                 new File(path).mkdirs();
-            }
+
             String filePath = Paths.get(path, fileName).toString();
             byte[] buffer = new byte[1024];
             BufferedInputStream bufferedInputStream = new BufferedInputStream(file.getInputStream());
@@ -85,10 +80,7 @@ public class StorageService {
                         rangeStart + "-" + rangeEnd + "/" + fileSize);
             }
 
-            if (path.contains("audio"))
-                responseHeaders.add("Content-Type", "audio/**");
-            else if (path.contains("video"))
-                responseHeaders.add("Content-Type", "video/**");
+            responseHeaders.add("Content-Type", "application/octet-stream");
 
             final Long _rangeStart = rangeStart;
             final Long _rangeEnd = rangeEnd;

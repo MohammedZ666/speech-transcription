@@ -134,11 +134,6 @@ public class TranscriptionService {
 
     private double getExtractionProgress() {
         try {
-            // String command[] = new String[] { "cat", "extract.log" };
-            // ProcessBuilder pb = new ProcessBuilder(command);
-            // pb.directory(new File(processingFolder));
-            // InputStreamReader inputStreamReader = new
-            // InputStreamReader(pb.start().getInputStream());
 
             FileReader fileReader = new FileReader(new File(processingFolder, "extract.log"));
             BufferedReader bufferedReader = new BufferedReader(fileReader);
@@ -183,11 +178,6 @@ public class TranscriptionService {
 
     private double getTranscriptionProgress() {
         try {
-            // String command[] = new String[] { "cat", "transcribe.log" };
-            // ProcessBuilder pb = new ProcessBuilder(command);
-            // pb.directory(new File(processingFolder));
-            // InputStreamReader inputStreamReader = new
-            // InputStreamReader(pb.start().getInputStream());
 
             FileReader fileReader = new FileReader(new File(processingFolder, "transcribe.log"));
             BufferedReader bufferedReader = new BufferedReader(fileReader);

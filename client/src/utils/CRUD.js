@@ -45,3 +45,32 @@ export const get = async (url, pathVariable, body) => {
     const responseStatus = response.status;
     return { responseBody, responseStatus };
 }
+
+export const forceDownload = (blob, filename) => {
+    var a = document.createElement('a');
+    a.download = filename;
+    a.href = blob;
+    // For Firefox https://stackoverflow.com/a/32226068
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+}
+
+// Current blob size limit is around 500MB for browsers
+export const downloadResource = (url) => {
+    let filename = url.split('\\').pop().split('/').pop();
+    fetch(url, {
+        headers: new Headers({
+            'Origin': window.location.origin
+        }),
+        mode: 'cors'
+    })
+        .then(response => response.blob())
+        .then(blob => {
+            let blobUrl = window.URL.createObjectURL(blob);
+            forceDownload(blobUrl, filename);
+        })
+        .catch(e => console.error(e));
+}
+
+export const sleep = ms => new Promise(r => setTimeout(r, ms));

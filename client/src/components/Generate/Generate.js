@@ -1,15 +1,14 @@
 import React, { useState } from "react";
 import "./Generate.css";
 import GenerateInput from "./GenerateInput.js";
-import { post, getServerUrl, get } from '../../utils/CRUD'
-import { useNavigate } from "react-router-dom"
+import { post, getServerUrl, get, downloadResource, sleep } from '../../utils/CRUD'
 const Generate = () => {
   const [values, setValues] = useState({
     file: "",
   });
-  const navigate = useNavigate()
   const [progress, setProgress] = useState(0)
   const [state, setState] = useState("Started")
+
 
   const inputs = [
     {
@@ -22,7 +21,7 @@ const Generate = () => {
       required: true,
     },
   ];
-  const sleep = ms => new Promise(r => setTimeout(r, ms));
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     // Write the post request to the controller here
@@ -41,8 +40,9 @@ const Generate = () => {
           setProgress(progressResponse["progress"])
           setState(progressResponse["state"])
           if (progressResponse["state"] === "complete") {
-            window.location.replace(`${getServerUrl()}/transcript/${responseBody["taskId"]}/input.srt`);
-            navigate("/")
+            downloadResource(`${getServerUrl()}/transcript/${responseBody["taskId"]}/input.srt`);
+            setState("Started")
+            setValues({ file: "" })
             break;
           }
         }
@@ -53,15 +53,14 @@ const Generate = () => {
   };
 
   const onChange = (e) => {
-    console.log(e.target.files[0].type)
     setValues({ ...values, file: e.target.files[0] });
   };
   return (
     <div className="generate-container">
       <form className="generate-form" onSubmit={handleSubmit}>
         <h1 className="generate-h1">Upload Audio/Video to Generate Subtitle</h1>
-        {(values.file && values.file.type.includes("audio")) && <audio src={URL.createObjectURL(values.file)} controls />}
-        {(values.file && values.file.type.includes("video")) && <video width="640" height="360" src={URL.createObjectURL(values.file)} controls />}
+        {(values.file !== "" && values.file.type.includes("audio")) && <audio src={URL.createObjectURL(values.file)} controls />}
+        {(values.file !== "" && values.file.type.includes("video")) && <video width="640" height="360" src={URL.createObjectURL(values.file)} controls />}
         {state === "Started" && <div>
           {inputs.map((input) => (
             <GenerateInput
@@ -73,7 +72,9 @@ const Generate = () => {
           ))}
         </div>}
 
-        {state !== "Started" && <h1>{state + " : " + progress + "%"}</h1>}
+        {state === "transcripting" && <h1>{state + "..."}</h1>}
+        {state === "extracting" && <h1>{state + " : " + progress + "%"} </h1>}
+
         {state === "Started" && <button className="generate-button">Submit</button>}
       </form>
     </div >
