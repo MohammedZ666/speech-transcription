@@ -38,6 +38,8 @@ jobs:
       with:
         java-version: '17'
         distribution: 'microsoft'
+    - name: Make gradle executable
+      run: chmod 777 gradlew
     - name: Build with Gradle
       uses: gradle/gradle-build-action@bd5760595778326ba7f1441bcf7e88b49de61a25 # v2.6.0
       with:
