@@ -24,15 +24,15 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Installing node
-    - uses: actions/setup-node@v3
+      uses: actions/setup-node@v3
       with:
         node-version: 18.13.0
     - name: Installing react client
-    - run:  cd client && npm install
+      run:  cd client && npm install
     - name: Building client
-    - run:  npm run build && cd ..
+      run:  npm run build && cd ..
     - name: Copying bundled client to the spring boot resources directory
-    - run:  cp -r client/build/** src/main/resources/static/ 
+      run:  cp -r client/build/** src/main/resources/static/ 
     - name: Setting up OpenJDK 17
       uses: actions/setup-java@v3
       with:
