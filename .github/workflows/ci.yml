@@ -30,7 +30,7 @@ jobs:
     - name: Installing react client
       run:  cd client && npm install
     - name: Building client
-      run:  npm run build && cd ..
+      run:  cd client && npm run build
     - name: Copying bundled client to the spring boot resources directory
       run:  cp -r client/build/** src/main/resources/static/ 
     - name: Setting up OpenJDK 17
