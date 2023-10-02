@@ -1,6 +1,6 @@
 FROM mcr.microsoft.com/openjdk/jdk:17-ubuntu
 
-WORKDIR /app
+COPY . /
 
 COPY build/libs/*.jar app.jar
 
