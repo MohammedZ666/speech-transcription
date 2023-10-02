@@ -56,7 +56,7 @@ jobs:
     - name : Storing built artifacts
       uses: actions/upload-artifact@v3
       with:
-        name: Package
+        name: subtly
         path: build/libs
 
   publish:
