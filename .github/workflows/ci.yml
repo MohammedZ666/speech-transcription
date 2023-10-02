@@ -53,6 +53,9 @@ jobs:
       with:
         arguments: build
 
+    - name: Checking build/libs
+      run: ls build/libs/*.jar
+
     - name: Set up QEMU
       uses: docker/setup-qemu-action@v3
 
