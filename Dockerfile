@@ -1,9 +1,8 @@
+# Example using MS Build of OpenJDK image directly
 FROM mcr.microsoft.com/openjdk/jdk:17-ubuntu
 
-COPY ./build/libs/subtly-0.0.1-SNAPSHOT.jar /usr/app/ap.jar
+VOLUME /tmp
 
-WORKDIR /usr/app
-
-EXPOSE 8080
+COPY ./build/libs/*T.jar app.jar
 
 CMD ["java", "-jar", "app.jar"]

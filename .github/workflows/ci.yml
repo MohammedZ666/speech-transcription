@@ -53,6 +53,10 @@ jobs:
       with:
         arguments: build
 
+  publish:
+    needs: build
+    runs-on: ubuntu-latest
+    steps: 
     - name: Checking built jars
       run: ls build/libs/*.jar
 
@@ -73,3 +77,5 @@ jobs:
       with:
         push: true
         tags: mohammedz666/speech-transcription:latest
+
+
