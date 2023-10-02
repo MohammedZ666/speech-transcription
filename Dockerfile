@@ -1,8 +1,11 @@
 # Example using MS Build of OpenJDK image directly
 FROM mcr.microsoft.com/openjdk/jdk:17-ubuntu
 
-VOLUME /tmp
+COPY . /tmp
+WORKDIR /tmp
 
-COPY ./build/libs/*T.jar app.jar
+RUN ls -l
+
+COPY build/libs/*T.jar app.jar
 
 CMD ["java", "-jar", "app.jar"]
