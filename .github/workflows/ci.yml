@@ -44,25 +44,12 @@ jobs:
       with:
         java-version: '17'
         distribution: 'microsoft'
-    
-    - name: Make gradle executable
-      run: chmod 777 gradlew
-    
+           
     - name: Build with Gradle
-      uses: gradle/gradle-build-action@bd5760595778326ba7f1441bcf7e88b49de61a25 # v2.6.0
-      with:
-        arguments: build
-    
-    - name : Storing built artifacts
-      uses: actions/upload-artifact@v3
-      with:
-        name: subtly
-        path: build/libs
+      run: |
+         chmod 777 gradlew
+         ./gradlew build
 
-  publish:
-    needs: build
-    runs-on: ubuntu-latest
-    steps: 
     - name: Checking built jars
       run: ls build/libs
 
@@ -83,5 +70,6 @@ jobs:
       with:
         push: true
         tags: mohammedz666/speech-transcription:latest
+
 
 
