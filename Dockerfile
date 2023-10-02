@@ -1,12 +1,8 @@
 FROM mcr.microsoft.com/openjdk/jdk:17-ubuntu
 
-WORKDIR /app
+COPY ./build/libs/subtly-0.0.1-SNAPSHOT.jar /usr/app/ap.jar
 
-COPY . /app
-
-RUN ls -l
-
-COPY build/libs/*.jar app.jar
+WORKDIR /usr/app
 
 EXPOSE 8080
 
