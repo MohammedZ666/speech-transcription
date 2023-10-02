@@ -1,6 +1,6 @@
 FROM mcr.microsoft.com/openjdk/jdk:17-ubuntu
 
-COPY . /
+COPY . /app
 
 RUN ls -l
 
