@@ -58,7 +58,7 @@ jobs:
     runs-on: ubuntu-latest
     steps: 
     - name: Checking built jars
-      run: ls build/libs/*.jar
+      run: ls build/libs
 
     - name: Set up QEMU
       uses: docker/setup-qemu-action@v3
