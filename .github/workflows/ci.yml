@@ -25,19 +25,19 @@ jobs:
     
     - uses: actions/checkout@v3
     
-    - name: Installing node
-      uses: actions/setup-node@v3
-      with:
-        node-version: 18.13.0
+    # - name: Installing node
+    #   uses: actions/setup-node@v3
+    #   with:
+    #     node-version: 18.13.0
     
-    - name: Installing react client
-      run:  cd client && npm install
+    # - name: Installing react client
+    #   run:  cd client && npm install
     
-    - name: Building client
-      run:  cd client && npm run build
+    # - name: Building client
+    #   run:  cd client && npm run build
     
-    - name: Copying bundled client to the spring boot resources directory
-      run:  cp -r client/build/** src/main/resources/static/ 
+    # - name: Copying bundled client to the spring boot resources directory
+    #   run:  cp -r client/build/** src/main/resources/static/ 
     
     - name: Setting up OpenJDK 17
       uses: actions/setup-java@v3
@@ -53,7 +53,7 @@ jobs:
       with:
         arguments: build
 
-    - name: Checking build/libs
+    - name: Checking built jars
       run: ls build/libs/*.jar
 
     - name: Set up QEMU
