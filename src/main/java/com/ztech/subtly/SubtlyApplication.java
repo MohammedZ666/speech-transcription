@@ -1,10 +1,13 @@
 package com.ztech.subtly;
 
+import java.io.File;
+import java.io.IOException;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.apache.commons.io.FileUtils;
 
 @SpringBootApplication
 public class SubtlyApplication {
@@ -21,6 +24,12 @@ public class SubtlyApplication {
 				registry.addMapping("/**").allowedHeaders("*").allowedMethods("*");
 			}
 		};
+	}
+
+	@Bean
+	public void cleanProcessingDirectory() throws IOException {
+		File processing_path = new File(System.getProperty("user.dir"), "processing");
+		FileUtils.cleanDirectory(processing_path);
 	}
 
 }
