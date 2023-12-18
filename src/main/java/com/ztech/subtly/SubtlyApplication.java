@@ -29,7 +29,9 @@ public class SubtlyApplication {
 	@Bean
 	public void cleanProcessingDirectory() throws IOException {
 		File processing_path = new File(System.getProperty("user.dir"), "processing");
-		FileUtils.cleanDirectory(processing_path);
+		if (processing_path.exists()) {
+			FileUtils.cleanDirectory(processing_path);
+		}
 	}
 
 }
